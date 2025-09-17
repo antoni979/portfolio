@@ -8,12 +8,25 @@ import { useMouseGlow } from '../composables/useMouseGlow.js';
 
 const { x, y } = useMouseGlow();
 const projects = projectsData;
+
+// --- ¡NUEVA LÓGICA INTELIGENTE! ---
+// Esta función busca la primera 'imagen' en el array de medios de un proyecto.
+// Si no encuentra ninguna, devuelve un placeholder para evitar errores.
+const getProjectThumbnail = (project) => {
+  if (!project.media || project.media.length === 0) {
+    return 'placeholder.png'; // Fallback por si el array de medios está vacío
+  }
+  const firstImage = project.media.find(item => item.type === 'image');
+  if (firstImage) {
+    return firstImage.src; // Devuelve el 'src' de la primera imagen encontrada
+  }
+  return 'placeholder.png'; // Fallback si solo hay vídeos
+};
 </script>
 
 <template>
   <div>
     <!-- HERO SECTION -->
-    <!-- El contenedor de la sección ahora es solo un marco de referencia de altura -->
     <section 
       class="min-h-screen relative overflow-hidden"
       :style="{
@@ -21,7 +34,6 @@ const projects = projectsData;
         '--mouse-y': `${y}px`,
       }"
     >
-      <!-- CAPA DEL FOCO - AHORA FIJA A LA PANTALLA COMPLETA -->
       <div 
         class="fixed inset-0 z-0 transition-all duration-300 pointer-events-none" 
         :style="{
@@ -29,7 +41,6 @@ const projects = projectsData;
         }"
       ></div>
 
-      <!-- CONTENEDOR DEL CONTENIDO - CENTRADO Y ENCIMA DEL FOCO -->
       <div class="relative z-10 min-h-screen flex flex-col justify-center items-center text-center max-w-5xl mx-auto p-4 sm:p-6 lg:p-8">
         <h1 class="text-6xl sm:text-8xl font-extrabold tracking-tight mb-4
                    bg-gradient-to-r from-purple-400 via-pink-500 to-blue-500 
@@ -54,7 +65,7 @@ const projects = projectsData;
       </div>
     </section>
 
-    <!-- EL RESTO DE LA PÁGINA (Proyectos y Footer) -->
+    <!-- PROJECTS SECTION -->
     <div class="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8">
       <section id="proyectos" class="py-20 space-y-24">
         <h3 v-scroll-animation class="text-5xl font-bold text-center mb-16">
@@ -67,7 +78,12 @@ const projects = projectsData;
           <div :class="['group', index % 2 === 0 ? 'md:order-1' : 'md:order-2']">
             <RouterLink :to="`/proyectos/${project.slug}`">
               <BrowserFrame>
-                <img :src="getImageUrl(project.images[0])" :alt="`Vista previa de ${project.title}`" 
+                <!-- 
+                  AHORA USAMOS LA NUEVA FUNCIÓN 'getProjectThumbnail'
+                  para asegurarnos de que siempre mostramos una imagen.
+                -->
+                <img :src="getImageUrl(getProjectThumbnail(project))" 
+                     :alt="`Vista previa de ${project.title}`" 
                      loading="lazy"
                      class="rounded-lg transition-transform duration-500 group-hover:scale-105" />
               </BrowserFrame>
@@ -106,6 +122,5 @@ const projects = projectsData;
         <p class="text-sm text-gray-400">Diseñado y desarrollado por Antoni Sanchez.</p>
       </footer>
     </div>
-      
   </div>
 </template>

@@ -3,10 +3,14 @@ export const projectsData = [
     slug: "nexus-intranet",
     title: "Intranet Corporativa 'Nexus'",
     description: "Plataforma integral de gestión de RRHH que centraliza y automatiza operaciones clave: fichajes, vacaciones, bolsa de horas, y más, optimizando la productividad y transparencia.",
-    images: [
-      "intranet.jpg",
-      "intranet2.jpg",
-      "intranet3.jpg"
+    // AHORA USA EL NUEVO FORMATO 'media'
+    media: [
+      // Ejemplo de Vídeo: Sube tu vídeo a YouTube, haz clic en Compartir > Insertar, y copia la URL del 'src'.
+      { type: 'video', src: 'https://www.youtube.com/embed/dQw4w9WgXcQ' },
+      // Ejemplo de Imágenes: Solo el nombre del archivo. Deben estar en /src/assets/images/
+      { type: 'image', src: 'intranet.jpg' },
+      { type: 'image', src: 'intranet2.jpg' },
+      { type: 'image', src: 'intranet3.jpg' },
     ],
     tags: ["Next.js", "React", "Node.js", "PostgreSQL", "Tailwind CSS"],
     githubUrl: null,
@@ -21,8 +25,10 @@ export const projectsData = [
     slug: "inspectify-pwa",
     title: "Inspectify - PWA de Auditoría",
     description: "Solución PWA para auditores que digitaliza el registro de incidencias. Permite capturar fotos y genera dinámicamente planos con un sistema de semáforos para visualizar la gravedad y ubicación de cada golpe.",
-    images: [
-      "placeholder.png" // Reemplaza esto con tus imágenes reales
+    media: [
+      // Añade aquí tu vídeo o imágenes para este proyecto
+      { type: 'image', src: 'placeholder.png' },
+      { type: 'image', src: 'placeholder.png' },
     ],
     tags: ["PWA", "React", "Supabase", "Cloudinary CDN", "SVG Dinámico"],
     githubUrl: "#",
@@ -37,8 +43,9 @@ export const projectsData = [
     slug: "nutrisuite-saas",
     title: "NutriSuite - SaaS para Nutricionistas",
     description: "Potente SaaS que moderniza la consulta de nutricionistas. Centraliza la gestión de clientes, facturación (con Stripe) y seguimiento de progreso (peso, fotos). Incluye IA para análisis y recomendaciones personalizadas.",
-    images: [
-        "placeholder.png" // Reemplaza esto con tus imágenes reales
+    media: [
+      // Añade aquí tu vídeo o imágenes para este proyecto
+      { type: 'image', src: 'placeholder.png' }
     ],
     tags: ["SaaS", "Next.js", "Stripe API", "IA (OpenAI)", "Prisma"],
     githubUrl: null,
